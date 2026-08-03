@@ -45,7 +45,7 @@ TEN projects panoramic visual features into a local metric map and samples path-
 
 ### Trajectory Waypoint Prediction on VLN-CE Val-Unseen
 
-| Model | $|\Delta|$ | %Open ↑ | $d_c$ ↓ | $d_h$ ↓ |
+| Model | &#124;Δ&#124; | %Open ↑ | $d_c$ ↓ | $d_h$ ↓ |
 |---|---:|---:|---:|---:|
 | Baseline | 1.37 | 80.18 | 1.08 | 2.16 |
 | U-Net | 1.21 | 52.54 | 1.01 | 2.00 |
@@ -116,4 +116,3 @@ This repository currently contains project documentation only. It does not grant
 ## Contact
 
 For questions about the paper, please open an issue in this repository or contact Haoxiang Shi at [Shihaoxiang1999@gmail.com](mailto:Shihaoxiang1999@gmail.com).
-
