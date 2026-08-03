@@ -31,16 +31,6 @@ We introduce **Trajectory Waypoint**, a trajectory-centric navigation paradigm i
 
 Vision-Language Navigation in Continuous Environments (VLN-CE) requires agents to follow natural-language instructions while navigating in real-world-like environments. Most VLN-CE approaches adopt a three-stage framework: a waypoint predictor proposes navigable waypoints, a navigator selects the best waypoint, and a low-level controller executes the movement. However, this decoupled paradigm often leads to unreachable waypoints or inconsistencies between planning and control. Instead of predicting isolated waypoints, we introduce a novel paradigm called Trajectory Waypoint, which grounds each candidate waypoint in an executable trajectory. We design a Trajectory Waypoint Predictor formulated as a TSDF-guided diffusion policy, which steers trajectory generation away from obstacles and improves the reachability of predicted waypoints. We further propose a Trajectory-Enhanced Navigator that injects the associated trajectory into planning, enabling consistency between high-level semantic decisions and low-level execution. Extensive experiments on the VLN-CE benchmark demonstrate the effectiveness of the proposed trajectory-centric paradigm.
 
-## Method
-
-### Trajectory Waypoint Predictor
-
-TWP first predicts coarse navigation intentions and uses them as location priors. A conditional diffusion policy then generates continuous trajectory candidates. During denoising, a differentiable safety cost derived from a local Truncated Signed Distance Field (TSDF) map guides candidate paths away from obstacles. Finally, adaptive trajectory truncation converts fixed-horizon predictions into variable-length executable trajectories.
-
-### Trajectory-Enhanced Navigator
-
-TEN projects panoramic visual features into a local metric map and samples path-aligned visual features along every candidate trajectory. These sequential representations enrich both the topological graph and the metric map. An instruction-conditioned cross-modal navigator then scores the complete trajectory candidates and directly executes the selected path.
-
 ## Main Results
 
 ### Trajectory Waypoint Prediction on VLN-CE Val-Unseen
@@ -78,22 +68,19 @@ This initial repository is a **paper-only project page**. It does not currently 
 
 ## Environment Installation
 
-No software installation is required for this paper-only release. A reproducible environment specification will be added if and when the implementation is released.
+Coming Soon.
 
 ## Data Preparation
 
-The experiments are conducted in the Habitat simulator on VLN-CE/R2R-CE. TWP training uses Matterport3D (MP3D) together with Habitat-Matterport 3D (HM3D); the paper reports more than 120,000 waypoint-trajectory training pairs. TEN is first pre-trained on R2R and then fine-tuned online in Habitat with DAgger.
-
-No dataset or data-processing pipeline is distributed in this paper-only release. Users should obtain the underlying datasets from their official providers and comply with the corresponding licenses and terms of use.
+Coming Soon.
 
 ## Training, Evaluation, and Inference
 
-Runnable commands are not provided because source code is outside the scope of this initial release. This section will be updated together with the implementation to avoid publishing incomplete or unverifiable instructions.
+Coming Soon.
 
 ## Model Weights
 
-No model weights are distributed in this paper-only release. Download instructions and model documentation will be added if checkpoints are released in the future.
-
+Coming Soon.
 ## Citation
 
 If you find this work useful, please cite:
