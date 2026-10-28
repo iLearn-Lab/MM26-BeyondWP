@@ -1,0 +1,50 @@
+name: acm-mm26
+channels:
+  - aihabitat
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8.19
+  - pip=24.0
+  - habitat-sim=0.1.7
+  - headless
+  - numpy=1.22.3
+  - scipy=1.4.1
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/cu118
+      - --find-links https://data.pyg.org/whl/torch-2.1.0+cu118.html
+      - torch-scatter==2.1.2
+      - dtw==1.4.0
+      - requests==2.28.2
+      - six==1.16.0
+      - boto3==1.20.31
+      - botocore==1.23.54
+      - imageio==2.34.1
+      - torch==2.1.2+cu118
+      - torchvision==0.16.2+cu118
+      - transformers==4.40.0
+      - huggingface-hub==0.23.0
+      - diffusers==0.11.1
+      - gym==0.26.2
+      - pytorch-transformers==1.2.0
+      - yacs==0.1.8
+      - easydict==1.13
+      - einops==0.8.0
+      - timm==0.6.13
+      - fastdtw==0.3.4
+      - numpy-quaternion==2023.0.3
+      - jsonlines==3.0.0
+      - lmdb==1.4.1
+      - msgpack-numpy==0.4.7.1
+      - opencv-python==4.11.0.86
+      - h5py==2.10.0
+      - Pillow==10.3.0
+      - PyYAML==6.0.1
+      - tqdm==4.65.2
+      - matplotlib==3.7.5
+      - networkx==3.1
+      - tensorboard==2.2.2
+      - tensorboardX==2.5
+      - protobuf==3.19.1
+      - attrs==23.2.0
+      - git+https://github.com/facebookresearch/habitat-lab.git@d6ed1c0a0e786f16f261de2beafe347f4186d0d8
