@@ -127,6 +127,8 @@ data/
 
 ## Model Weights
 
+Download `twp.pth` and `navigator.pth` from [Baidu Netdisk](https://pan.baidu.com/s/1x0F7KqK_BXJjbgY4mA_QpQ?pwd=h6uu) (extraction code: `h6uu`) and place them in `data/weights/`.
+
 | File or directory | Model | Source |
 |---|---|---|
 | `twp.pth` | Trajectory Waypoint Predictor (TWP) | This work |
