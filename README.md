@@ -69,7 +69,7 @@ Use Linux with an NVIDIA GPU and a CUDA-compatible driver:
 
 ```bash
 conda env create -f environment.yaml
-conda activate acm-mm26
+conda activate twp-vlnce
 ```
 
 The code was smoke-tested in the existing Python 3.8.19 / PyTorch 2.1.2 + CUDA 11.8 / Habitat 0.1.7 environment. A fresh installation from the environment file has not yet been validated.
