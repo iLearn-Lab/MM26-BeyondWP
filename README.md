@@ -127,7 +127,7 @@ data/
 
 ## Model Weights
 
-| File or directory | Model | Source repository |
+| File or directory | Model | Source |
 |---|---|---|
 | `twp.pth` | Trajectory Waypoint Predictor (TWP) | This work |
 | `navigator.pth` | Navigator | This work |
@@ -136,9 +136,9 @@ data/
 | `dinov3.pth` | DINOv3 | [DINOv3](https://github.com/facebookresearch/dinov3) |
 | `resnet50.pth` | ResNet-50 | [Torchvision](https://github.com/pytorch/vision) |
 | `waypoint.pth` | Candidate Waypoint Predictor (CWP) | [Discrete-Continuous-VLN](https://github.com/YicongHong/Discrete-Continuous-VLN) |
-| `siglip/` | SigLIP 2 | [big_vision](https://github.com/google-research/big_vision) |
-| `bert-base-uncased/` | BERT | [BERT](https://github.com/google-research/bert) |
-| `xlm-roberta-base/` | XLM-RoBERTa | [fairseq](https://github.com/facebookresearch/fairseq/tree/main/examples/xlmr) |
+| `siglip/` | SigLIP 2 | [big_vision](https://github.com/google-research/big_vision/blob/main/big_vision/configs/proj/image_text/README_siglip2.md) · [model](https://huggingface.co/google/siglip2-base-patch16-224) |
+| `bert-base-uncased/` | BERT | [BERT](https://github.com/google-research/bert) · [model](https://huggingface.co/google-bert/bert-base-uncased) |
+| `xlm-roberta-base/` | XLM-RoBERTa | [fairseq](https://github.com/facebookresearch/fairseq/tree/main/examples/xlmr) · [model](https://huggingface.co/FacebookAI/xlm-roberta-base) |
 
 ## Training, Evaluation, and Inference
 
