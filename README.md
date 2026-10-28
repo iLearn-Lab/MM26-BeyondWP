@@ -59,38 +59,98 @@ The values above are the results reported in the paper.
 - `VLN-CE/`: navigator training, Habitat evaluation, and benchmark inference with TSDF guidance.
 - `environment.yaml` and root launch scripts.
 
-## Environment Installation
+## Installation
 
-Use Linux with an NVIDIA GPU and a CUDA-compatible driver:
+Use Linux with an NVIDIA GPU. The environment uses Python 3.8, PyTorch 2.1.2 with CUDA 11.8, and [Habitat-Sim](https://github.com/facebookresearch/habitat-sim/tree/v0.1.7) / [Habitat-Lab](https://github.com/facebookresearch/habitat-lab/tree/v0.1.7) 0.1.7. See also the [ETPNav setup guide](https://github.com/MarSaKi/ETPNav#setup) and [VLN-CE](https://github.com/jacobkrantz/VLN-CE).
 
-```bash
-conda env create -f environment.yaml
-conda activate twp-vlnce
-```
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/iLearn-Lab/MM26-BeyondWP.git
+   cd MM26-BeyondWP
+   ```
+
+2. Create and activate the environment:
+
+   ```bash
+   conda env create -f environment.yaml
+   conda activate twp-vlnce
+   ```
+
+   `environment.yaml` installs the headless Habitat-Sim 0.1.7 package and pins Habitat-Lab to the [0.1.7 source revision](https://github.com/facebookresearch/habitat-lab/tree/d6ed1c0a0e786f16f261de2beafe347f4186d0d8). The required Habitat Baselines modules are included in `VLN-CE/habitat_baselines/`.
+
+3. Check the installation:
+
+   ```bash
+   python -c "import torch, habitat, habitat_sim; print(torch.__version__, habitat.__version__, torch.cuda.is_available())"
+   ```
 
 ## Data Preparation
 
-Keep all inputs outside this repository. VLN-CE expects the following paths under `DATA_ROOT`:
+Follow the [BEVBert data setup instructions](https://github.com/MarSaKi/VLN-BEVBert#setup) to prepare the VLN-CE annotations and Matterport3D scenes. Organize data and weights as follows:
 
 ```text
-scene_datasets/
-datasets/R2R_VLNCE_v1-2_preprocessed_BERTidx/{split}/{split}_bertidx.json.gz
-datasets/R2R_VLNCE_v1-2_preprocessed_BERTidx/train/train_dagger_bertidx.json.gz
-datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json.gz
+data/
+├── datasets/
+│   ├── R2R_VLNCE_v1-2_preprocessed_BERTidx/
+│   │   ├── train/
+│   │   │   ├── train_bertidx.json.gz
+│   │   │   └── train_dagger_bertidx.json.gz
+│   │   ├── val_seen/val_seen_bertidx.json.gz
+│   │   ├── val_unseen/val_unseen_bertidx.json.gz
+│   │   └── test/test_bertidx.json.gz
+│   └── R2R_VLNCE_v1-2_preprocessed/
+│       └── {split}/{split}_gt.json.gz
+├── scene_datasets/
+│   └── mp3d/{scene}/{scene}.glb
+├── weights/
+│   ├── twp.pth
+│   ├── navigator.pth
+│   ├── pretrained.pt
+│   ├── depth.pth
+│   ├── dinov3.pth
+│   ├── resnet50.pth
+│   ├── waypoint.pth
+│   ├── siglip/
+│   ├── bert-base-uncased/
+│   └── xlm-roberta-base/
+└── twp/
+    ├── annotations/
+    │   ├── train.json
+    │   ├── val_unseen.json
+    │   └── hm3d_train.json
+    ├── mp3d/rgbd_fov90_d_1_25_fts/
+    │   └── {split}/{scan}/{scan}_{node_id}_mp3d_imgs.pkl
+    └── hm3d/rgbd_fov90_d_1_25_fts/hm3d/
+        └── {scan}/{scan}_{node_id}_hfov90_hm3d_imgs.pkl
 ```
-
-TWP consumes prepared annotation files and RGB/depth feature pickles. The loaders specify the annotation fields and feature layout in `TWP/vint_train/data/wp_TRM_via_cls_dataset.py` and `wp_TRM_via_cls_dataset_hm3d.py`.
 
 ## Model Weights
 
-Place model weights in `WEIGHTS_ROOT`:
-
-- `twp.pth`: Trajectory Waypoint Predictor (TWP) weights.
-- `navigator.pth`: Navigator weights.
+| File or directory | Model | Source repository |
+|---|---|---|
+| `twp.pth` | Trajectory Waypoint Predictor (TWP) | This work |
+| `navigator.pth` | Navigator | This work |
+| `pretrained.pt` | Navigator pretraining | [BEVBert](https://github.com/MarSaKi/VLN-BEVBert) |
+| `depth.pth` | DD-PPO depth encoder | [Habitat-Lab](https://github.com/facebookresearch/habitat-lab/tree/v0.1.7/habitat_baselines/rl/ddppo) |
+| `dinov3.pth` | DINOv3 | [DINOv3](https://github.com/facebookresearch/dinov3) |
+| `resnet50.pth` | ResNet-50 | [Torchvision](https://github.com/pytorch/vision) |
+| `waypoint.pth` | Candidate Waypoint Predictor (CWP) | [Discrete-Continuous-VLN](https://github.com/YicongHong/Discrete-Continuous-VLN) |
+| `siglip/` | SigLIP 2 | [big_vision](https://github.com/google-research/big_vision) |
+| `bert-base-uncased/` | BERT | [BERT](https://github.com/google-research/bert) |
+| `xlm-roberta-base/` | XLM-RoBERTa | [fairseq](https://github.com/facebookresearch/fairseq/tree/main/examples/xlmr) |
 
 ## Training, Evaluation, and Inference
 
-Set the variables below to absolute paths for your prepared inputs, checkpoints, and an external output directory. Run these commands from the repository root.
+Set the paths below to match your data directory and run commands from the repository root:
+
+```bash
+export DATA_ROOT=/absolute/path/to/data
+export WEIGHTS_ROOT="$DATA_ROOT/weights"
+export TWP_DATA_ROOT="$DATA_ROOT/twp"
+export ANNOTATIONS="$TWP_DATA_ROOT/annotations/train.json"
+export RUN_ROOT=/absolute/path/to/runs
+```
 
 TWP prior training, diffusion training, and prediction:
 
