@@ -81,6 +81,13 @@ datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json.gz
 
 TWP consumes prepared annotation files and RGB/depth feature pickles. The loaders specify the annotation fields and feature layout in `TWP/vint_train/data/wp_TRM_via_cls_dataset.py` and `wp_TRM_via_cls_dataset_hm3d.py`.
 
+## Model Weights
+
+Place model weights in `WEIGHTS_ROOT`:
+
+- `twp.pth`: Trajectory Waypoint Predictor (TWP) weights.
+- `navigator.pth`: Navigator weights.
+
 ## Training, Evaluation, and Inference
 
 Set the variables below to absolute paths for your prepared inputs, checkpoints, and an external output directory. Run these commands from the repository root.
