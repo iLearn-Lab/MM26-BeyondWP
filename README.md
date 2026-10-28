@@ -53,15 +53,11 @@ Vision-Language Navigation in Continuous Environments (VLN-CE) requires agents t
 
 The values above are the results reported in the paper.
 
-## Release Scope
-
-This release contains a minimal implementation of TWP and VLN-CE navigation:
+## Code Structure
 
 - `TWP/`: prior training, diffusion training, and trajectory prediction on precomputed features.
 - `VLN-CE/`: navigator training, Habitat evaluation, and benchmark inference with TSDF guidance.
 - `environment.yaml` and root launch scripts.
-
-Datasets, scenes, model weights, experiment logs, and generated outputs are stored externally and are not included. The navigation checkpoint selected for this release is iteration 14800 from the TSDF experiment (historical Val-Unseen SR 60.30%, SPL 52.46%). This experiment record is distinct from the paper results above.
 
 ## Environment Installation
 
@@ -71,8 +67,6 @@ Use Linux with an NVIDIA GPU and a CUDA-compatible driver:
 conda env create -f environment.yaml
 conda activate twp-vlnce
 ```
-
-The code was smoke-tested in the existing Python 3.8.19 / PyTorch 2.1.2 + CUDA 11.8 / Habitat 0.1.7 environment. A fresh installation from the environment file has not yet been validated.
 
 ## Data Preparation
 
@@ -85,7 +79,7 @@ datasets/R2R_VLNCE_v1-2_preprocessed_BERTidx/train/train_dagger_bertidx.json.gz
 datasets/R2R_VLNCE_v1-2_preprocessed/{split}/{split}_gt.json.gz
 ```
 
-TWP consumes prepared annotation files and RGB/depth feature pickles. The loaders specify the annotation fields and feature layout in `TWP/vint_train/data/wp_TRM_via_cls_dataset.py` and `wp_TRM_via_cls_dataset_hm3d.py`. Feature extraction and dataset download scripts are not included.
+TWP consumes prepared annotation files and RGB/depth feature pickles. The loaders specify the annotation fields and feature layout in `TWP/vint_train/data/wp_TRM_via_cls_dataset.py` and `wp_TRM_via_cls_dataset_hm3d.py`.
 
 ## Training, Evaluation, and Inference
 
@@ -114,21 +108,7 @@ bash infer_vlnce.sh --data-root "$DATA_ROOT" --weights-root "$WEIGHTS_ROOT" \
   --output-dir "$RUN_ROOT/inference" --split test
 ```
 
-Use `--episodes 1` for a short evaluation/inference check and `--help` for other options. Set `NPROC_PER_NODE` for distributed navigator training. Benchmark inference writes `predictions.json`; this release does not provide a physical robot deployment interface.
-
-Validation covered TWP prediction, both TWP training stages, a navigator training iteration, and one-episode navigation evaluation and inference. The complete 1839-episode benchmark has not been rerun on the cleaned code.
-
-## Model Weights
-
-Checkpoint downloads are not yet published. Running the commands above requires the externally prepared assets:
-
-- `twp.pth`: the effective TWP state extracted from the selected navigator checkpoint.
-- `navigator.pth`: the selected iteration-14800 navigator state.
-- `depth.pth`, `dinov3.pth`, `resnet50.pth`, and `waypoint.pth`: frozen visual encoders and waypoint prior.
-- `siglip/`, `bert-base-uncased/`, and `xlm-roberta-base/`: local model/processor/tokenizer assets expected by the loaders.
-- `pretrained.pt`: navigator initialization used for training.
-
-Keep the selected navigator and TWP checkpoints paired. Data and pretrained models remain subject to their respective upstream access and license terms.
+Use `--episodes 1` to run one episode and `--help` for other options. Set `NPROC_PER_NODE` for distributed navigator training. Inference writes `predictions.json`.
 
 ## Citation
 
